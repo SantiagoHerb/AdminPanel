@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel 100% Tailwind</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 flex min-h-screen">
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-200 p-6 space-y-6 transform -translate-x-full md:translate-x-0 transition-transform duration-200 shadow-sm">
+    <div class="flex items-center justify-between">
+      <h2 class="text-xl font-bold text-blue-600">AdminPanel</h2>
+      <button class="md:hidden text-gray-500 hover:text-gray-700" onclick="toggleSidebar()">✖</button>
+    </div>
+
+    <nav class="space-y-2">
+      <button onclick="showView('crear')" class="w-full text-left px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">👤 Crear usuarios</button>
+      <button onclick="showView('listar')" class="w-full text-left px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">📋 Listado de usuarios</button>
+      <button onclick="showView('buscar')" class="w-full text-left px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">🔍 Buscar usuarios</button>
+      <button onclick="showView('proyectos')" class="w-full text-left px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">🗂️ Gestionar proyectos</button>
+    </nav>
+  </aside>
+
+  <!-- Contenedor principal -->
+  <div class="flex-1 ml-0 md:ml-64 flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm p-4 flex items-center justify-between sticky top-0 z-10">
+      <div class="flex items-center space-x-3">
+        <button class="md:hidden text-gray-600" onclick="toggleSidebar()">☰</button>
+        <h1 class="text-lg font-semibold text-gray-700">Panel de Administración</h1>
+      </div>
+      <div class="flex items-center space-x-3">
+        <span class="text-sm text-gray-500">Administrador</span>
+        <img src="https://i.pravatar.cc/32" class="w-8 h-8 rounded-full" alt="user">
+      </div>
+    </header>
+
+    <!-- Contenido dinámico -->
+    <main class="flex-1 p-6 space-y-6">
+
+      <!-- Crear Usuario -->
+      <section id="crear" class="hidden">
+        <div class="bg-white rounded-xl shadow p-6">
+          <h2 class="text-xl font-semibold mb-4 text-gray-700">Crear nuevo usuario</h2>
+          <form class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="text-sm font-medium text-gray-600">Identificación</label>
+              <input type="text" class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ej: 1234567890">
+            </div>
+            <div>
+              <label class="text-sm font-medium text-gray-600">Nombres</label>
+              <input type="text" class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ej: Juan">
+            </div>
+            <div>
+              <label class="text-sm font-medium text-gray-600">Apellidos</label>
+              <input type="text" class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ej: Pérez">
+            </div>
+            <div>
+              <label class="text-sm font-medium text-gray-600">Fecha de nacimiento</label>
+              <input type="date" class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+              <label class="text-sm font-medium text-gray-600">Género</label>
+              <select class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option>Seleccione...</option>
+                <option>Masculino</option>
+                <option>Femenino</option>
+                <option>Otro</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-sm font-medium text-gray-600">Email</label>
+              <input type="email" class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="ejemplo@correo.com">
+            </div>
+            <div class="md:col-span-2 text-right">
+              <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Guardar usuario</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Listado de usuarios -->
+      <section id="listar" class="hidden">
+        <div class="bg-white rounded-xl shadow p-6">
+          <h2 class="text-xl font-semibold mb-4 text-gray-700">Listado de usuarios</h2>
+          <div class="overflow-x-auto">
+            <table class="min-w-full text-sm text-left border border-gray-200">
+              <thead class="bg-gray-100 text-gray-600">
+                <tr>
+                  <th class="px-4 py-2 border border-gray-200">Identificación</th>
+                  <th class="px-4 py-2 border border-gray-200">Nombres</th>
+                  <th class="px-4 py-2 border border-gray-200">Apellidos</th>
+                  <th class="px-4 py-2 border border-gray-200">Fecha Nac.</th>
+                  <th class="px-4 py-2 border border-gray-200">Género</th>
+                  <th class="px-4 py-2 border border-gray-200">Email</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="hover:bg-gray-50">
+                  <td class="px-4 py-2 border border-gray-200">123456</td>
+                  <td class="px-4 py-2 border border-gray-200">Juan</td>
+                  <td class="px-4 py-2 border border-gray-200">Pérez</td>
+                  <td class="px-4 py-2 border border-gray-200">1995-03-10</td>
+                  <td class="px-4 py-2 border border-gray-200">Masculino</td>
+                  <td class="px-4 py-2 border border-gray-200">juanp@example.com</td>
+                </tr>
+                <tr class="hover:bg-gray-50">
+                  <td class="px-4 py-2 border border-gray-200">789012</td>
+                  <td class="px-4 py-2 border border-gray-200">Ana</td>
+                  <td class="px-4 py-2 border border-gray-200">Gómez</td>
+                  <td class="px-4 py-2 border border-gray-200">1998-07-22</td>
+                  <td class="px-4 py-2 border border-gray-200">Femenino</td>
+                  <td class="px-4 py-2 border border-gray-200">ana.g@example.com</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Buscar usuario -->
+      <section id="buscar" class="hidden">
+        <div class="bg-white rounded-xl shadow p-6 space-y-4">
+          <h2 class="text-xl font-semibold text-gray-700">Buscar usuario</h2>
+          <div class="flex flex-col md:flex-row gap-3">
+            <input type="text" placeholder="Valor a buscar..." class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 flex-1">
+            <select class="w-full md:w-auto border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option>Seleccione campo</option>
+              <option>Identificación</option>
+              <option>Nombres</option>
+              <option>Apellidos</option>
+              <option>Fecha de nacimiento</option>
+              <option>Género</option>
+              <option>Email</option>
+            </select>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Buscar</button>
+          </div>
+
+          <div class="overflow-x-auto mt-4">
+            <table class="min-w-full text-sm border border-gray-200">
+              <thead class="bg-gray-100 text-gray-600">
+                <tr>
+                  <th class="px-4 py-2 border border-gray-200">Identificación</th>
+                  <th class="px-4 py-2 border border-gray-200">Nombres</th>
+                  <th class="px-4 py-2 border border-gray-200">Apellidos</th>
+                  <th class="px-4 py-2 border border-gray-200">Fecha Nac.</th>
+                  <th class="px-4 py-2 border border-gray-200">Género</th>
+                  <th class="px-4 py-2 border border-gray-200">Email</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="hover:bg-gray-50">
+                  <td class="px-4 py-2 border border-gray-200">567890</td>
+                  <td class="px-4 py-2 border border-gray-200">Carlos</td>
+                  <td class="px-4 py-2 border border-gray-200">López</td>
+                  <td class="px-4 py-2 border border-gray-200">1993-05-11</td>
+                  <td class="px-4 py-2 border border-gray-200">Masculino</td>
+                  <td class="px-4 py-2 border border-gray-200">carlos.l@example.com</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gestionar proyectos -->
+      <section id="proyectos" class="hidden">
+        <div class="bg-white rounded-xl shadow p-6">
+          <h2 class="text-xl font-semibold mb-4 text-gray-700">Gestión de proyectos</h2>
+          <p class="text-gray-600">Aquí podrás administrar los proyectos registrados en el sistema.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const sections = ['crear', 'listar', 'buscar', 'proyectos'];
+    function showView(id) {
+      sections.forEach(sec => document.getElementById(sec).classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
+      if (window.innerWidth < 768) toggleSidebar();
+    }
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('-translate-x-full');
+    }
+    showView('crear');
+  </script>
+</body>
+</html>
